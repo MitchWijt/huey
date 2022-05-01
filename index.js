@@ -1,10 +1,9 @@
-const express = require('express')
+const { loadEnv } = require('./config')
+const { name } = require('./package.json')
+
+loadEnv()
 const PORT = process.env.PORT || 3000
 
-const app = express()
-
-app.use('/', (req, res, next) => {
-  res.status(200).json({ success: true })
+require('./app')({ port: PORT }, () => {
+  console.log(`${name} listening on port ${PORT}`)
 })
-
-app.listen(PORT, () => console.log(`listeing on port ${PORT}`))
